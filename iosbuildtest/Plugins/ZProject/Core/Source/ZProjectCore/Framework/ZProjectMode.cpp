@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 
+
 AZProjectMode::AZProjectMode()
 {
 	// set default pawn class to our Blueprinted character
@@ -13,4 +14,22 @@ AZProjectMode::AZProjectMode()
 	//{
 	//	DefaultPawnClass = PlayerPawnBPClass.Class;
 	//}
+}
+void AZProjectMode::BeginPlay()
+{
+	// Call the base class  
+	Super::BeginPlay();
+
+	auto it = SubWidget.begin();
+	auto itEnd = SubWidget.end();
+	for (; it != itEnd; ++it)
+	{
+		UUserWidget* pWidget = CreateWidget<UUserWidget>(GetWorld(), *it);
+		if (pWidget != NULL)
+		{
+			pWidget->SetOwningPlayer(Cast<APlayerController>(GetOwner()));
+			pWidget->AddToViewport();
+			pWidget->SetVisibility(ESlateVisibility::Visible);
+		}
+	}
 }
