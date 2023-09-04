@@ -7,6 +7,7 @@ public class iosbuildtestClientTarget : TargetRules
 {
 	public iosbuildtestClientTarget(TargetInfo Target) : base(Target)
 	{
+        IOSPlatform.bStripSymbols = true;
 		Type = TargetType.Client;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1;
